@@ -43,16 +43,32 @@ def download_kaggle_dataset(tmp_dir: Path) -> Path:
     if css_data_dir.exists():
         return css_data_dir
 
+    token_path = Path.home() / ".kaggle" / "access_token"
+    if not token_path.exists():
+        raise RuntimeError(
+            f"Token do Kaggle nao encontrado em {token_path}. "
+            "Configure-o (kaggle.com/settings/api) antes de rodar esta celula."
+        )
+
     print("Baixando dataset 'Construction Site Safety' do Kaggle (~206MB)...")
-    subprocess.run(
+    result = subprocess.run(
         [
             sys.executable, "-m", "kaggle", "datasets", "download",
             "-d", KAGGLE_DATASET,
             "-p", str(tmp_dir),
             "--unzip",
         ],
-        check=True,
+        capture_output=True,
+        text=True,
     )
+    print(result.stdout)
+    if result.returncode != 0:
+        print(result.stderr)
+        raise RuntimeError(
+            f"Falha ao baixar dataset do Kaggle (codigo {result.returncode}). "
+            "Veja a mensagem de erro acima - geralmente e token invalido/expirado "
+            "ou o dataset exige aceitar os termos de uso no site do Kaggle primeiro."
+        )
     return css_data_dir
 
 
