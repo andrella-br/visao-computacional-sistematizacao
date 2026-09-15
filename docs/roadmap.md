@@ -130,9 +130,17 @@ inferência em `video/output/`.
 **Critério do barema:** "4. Avaliação e análise crítica" — 20% e
 "5. Aplicação em vídeo" — 10%.
 
-## Fase 5 — Entrega e apresentação
+## Fase 5 — Entrega e apresentação 🟡 Em andamento
 
-**Objetivo:** consolidar e entregar todos os artefatos do projeto.
+**Status:**
+- ✅ Relatório técnico consolidado: [`../docs/relatorio-tecnico.md`](relatorio-tecnico.md).
+- ✅ Repositório Git local inicializado (`git init` + primeiro commit) — push
+  para o GitHub pendente de decisão do integrante (conta/nome do repo).
+- ✅ Notebook Colab executável: `notebooks/pipeline_completo.ipynb`
+  (35 células, cobrindo `step01` a `step14`).
+- ⬜ Vídeo-pitch (5-8 min) — pendente, exige gravação do integrante.
+
+**Objetivo original:** consolidar e entregar todos os artefatos do projeto.
 
 **Atividades:**
 - Finalizar o relatório técnico (README, 6–10 páginas): problema e cenário,
