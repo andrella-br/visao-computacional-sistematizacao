@@ -9,6 +9,9 @@ Uso:
 
 import random
 import shutil
+import subprocess
+import sys
+import tempfile
 from collections import defaultdict
 from pathlib import Path
 
@@ -29,10 +32,28 @@ CLASS_NAMES = [
     "vehicle",
 ]
 
-SOURCE_ROOT = Path(
-    r"C:\Users\andre.luiz\AppData\Local\Temp\css_tmp\css-data"
-)
+KAGGLE_DATASET = "snehilsanyal/construction-site-safety-image-dataset-roboflow"
 OUTPUT_ROOT = Path(__file__).resolve().parents[1] / "data" / "raw" / "construction-site-safety"
+
+
+def download_kaggle_dataset(tmp_dir: Path) -> Path:
+    """Baixa (uma unica vez) o dataset do Kaggle via CLI. Requer um token
+    configurado em ~/.kaggle/access_token (kaggle.com/settings/api)."""
+    css_data_dir = tmp_dir / "css-data"
+    if css_data_dir.exists():
+        return css_data_dir
+
+    print("Baixando dataset 'Construction Site Safety' do Kaggle (~206MB)...")
+    subprocess.run(
+        [
+            sys.executable, "-m", "kaggle", "datasets", "download",
+            "-d", KAGGLE_DATASET,
+            "-p", str(tmp_dir),
+            "--unzip",
+        ],
+        check=True,
+    )
+    return css_data_dir
 
 
 def read_classes_in_label(label_path: Path) -> set:
@@ -49,11 +70,11 @@ def read_classes_in_label(label_path: Path) -> set:
     return classes
 
 
-def collect_pool():
+def collect_pool(source_root: Path):
     pool = []
     for split in ["train", "valid", "test"]:
-        images_dir = SOURCE_ROOT / split / "images"
-        labels_dir = SOURCE_ROOT / split / "labels"
+        images_dir = source_root / split / "images"
+        labels_dir = source_root / split / "labels"
         if not images_dir.exists():
             continue
         for img_path in images_dir.iterdir():
@@ -67,7 +88,12 @@ def collect_pool():
 
 def main():
     random.seed(SEED)
-    pool = collect_pool()
+
+    tmp_dir = Path(tempfile.gettempdir()) / "css_kaggle_cache"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+    source_root = download_kaggle_dataset(tmp_dir)
+
+    pool = collect_pool(source_root)
     print(f"Total de imagens disponiveis na fonte: {len(pool)}")
 
     random.shuffle(pool)
@@ -117,15 +143,8 @@ def main():
             shutil.copy2(label_path, labels_out / label_path.name)
         copied += 1
 
-    data_yaml = OUTPUT_ROOT / "data.yaml"
-    with open(data_yaml, "w", encoding="utf-8") as f:
-        f.write("# Subconjunto estratificado do Construction Site Safety (CC BY 4.0)\n")
-        f.write(f"# Fonte: Roboflow Universe / Kaggle (snehilsanyal), seed={SEED}\n")
-        f.write("nc: %d\n" % len(CLASS_NAMES))
-        f.write("names: %s\n" % CLASS_NAMES)
-
     print(f"Imagens+labels copiados: {copied}")
-    print(f"data.yaml escrito em: {data_yaml}")
+    print("data.yaml (formato Ultralytics, com train/val/test) e escrito pelo step05, nao aqui.")
 
 
 if __name__ == "__main__":

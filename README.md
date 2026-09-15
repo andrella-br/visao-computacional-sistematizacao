@@ -33,7 +33,9 @@ data/
   raw/            # imagens originais anotadas (não versionado)
   processed/      # imagens/anotações após pré-processamento (não versionado)
   splits/         # listas de arquivos train/val/test por fonte (versionado)
-notebooks/        # notebooks Colab/Jupyter (EDA, treino, avaliação, inferência)
+notebooks/        # 6 notebooks Colab autocontidos (não chamam src/, código inline):
+                  #   01_data.ipynb, 02_detection.ipynb, 03_segmentation.ipynb,
+                  #   04_evaluation.ipynb, 05_inference_video.ipynb, 06_report.ipynb
 src/
   step01_data_*.py, step02_data_*.py, ...      # Fase 1 (dados)
   step0N_detection_*.py                        # Fase 2 (detecção)
@@ -108,6 +110,23 @@ já indica a ordem de execução (`NN`) e a fase do roadmap a que pertencem
 Todas as fases (1 a 4) estão concluídas — ver
 [`docs/relatorio-tecnico.md`](docs/relatorio-tecnico.md) para os resultados
 completos e [`docs/roadmap.md`](docs/roadmap.md) para o status por fase.
+
+## Rodar no Google Colab
+
+Em vez dos scripts locais, use os 6 notebooks em `notebooks/` (código inline,
+sem depender de `src/`) — abra cada um no Colab e rode as células em ordem:
+
+1. [`01_data.ipynb`](notebooks/01_data.ipynb) — baixa e prepara os dados (Fase 1)
+2. [`02_detection.ipynb`](notebooks/02_detection.ipynb) — treina o detector (Fase 2)
+3. [`03_segmentation.ipynb`](notebooks/03_segmentation.ipynb) — treina o segmentador e compara com o detector (Fase 3)
+4. [`04_evaluation.ipynb`](notebooks/04_evaluation.ipynb) — avaliação no teste + análise de erros (Fase 4)
+5. [`05_inference_video.ipynb`](notebooks/05_inference_video.ipynb) — concatena o vídeo e roda a inferência (Fase 4)
+6. [`06_report.ipynb`](notebooks/06_report.ipynb) — gera o relatório de conformidade de EPI
+
+Todos os notebooks montam o Google Drive e usam a mesma pasta persistente
+(`/content/drive/MyDrive/vc-seguranca-trabalho`) para compartilhar dados e
+pesos entre eles. `01_data.ipynb` pede um token do Kaggle; `05_inference_video.ipynb`
+exige upload manual dos 3 clipes de vídeo (ver `video/input/README.md`).
 
 ## Planejamento do projeto
 

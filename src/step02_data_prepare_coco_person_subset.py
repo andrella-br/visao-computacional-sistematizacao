@@ -8,24 +8,47 @@ Uso:
 
 import json
 import random
+import tempfile
 import urllib.request
+import zipfile
 from pathlib import Path
 
 SEED = 42
 TARGET_IMAGES = 300
-ANNOTATIONS_PATH = Path(
-    r"C:\Users\andre.luiz\AppData\Local\Temp\coco_tmp\annotations\instances_val2017.json"
-)
+ANNOTATIONS_ZIP_URL = "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
+ANNOTATIONS_MEMBER = "annotations/instances_val2017.json"
 OUTPUT_DIR = Path(__file__).resolve().parents[1] / "data" / "raw" / "coco-person"
 IMAGES_DIR = OUTPUT_DIR / "images"
 COCO_IMAGE_BASE_URL = "http://images.cocodataset.org/val2017/"
+
+
+def download_and_extract_annotations(tmp_dir: Path) -> Path:
+    """Baixa apenas o instances_val2017.json de dentro do zip de anotacoes do
+    COCO (241MB), sem precisar baixar o zip inteiro em disco antes."""
+    extracted_path = tmp_dir / "instances_val2017.json"
+    if extracted_path.exists():
+        return extracted_path
+
+    zip_path = tmp_dir / "annotations_trainval2017.zip"
+    print("Baixando anotacoes do COCO (241MB, so uma vez)...")
+    urllib.request.urlretrieve(ANNOTATIONS_ZIP_URL, zip_path)
+
+    with zipfile.ZipFile(zip_path) as zf:
+        zf.extract(ANNOTATIONS_MEMBER, tmp_dir)
+    (tmp_dir / ANNOTATIONS_MEMBER).rename(extracted_path)
+    zip_path.unlink()
+    return extracted_path
 
 
 def main():
     random.seed(SEED)
     IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
-    with open(ANNOTATIONS_PATH, "r", encoding="utf-8") as f:
+    tmp_dir = Path(tempfile.gettempdir()) / "coco_annotations_cache"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+    annotations_path = download_and_extract_annotations(tmp_dir)
+
+    with open(annotations_path, "r", encoding="utf-8") as f:
         coco = json.load(f)
 
     person_cat_id = next(
