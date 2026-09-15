@@ -1,0 +1,13 @@
+torch
+torchvision
+ultralytics
+opencv-python
+supervision
+numpy
+pandas
+matplotlib
+scikit-learn
+pyyaml
+pillow
+kaggle
+pyarrow

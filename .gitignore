@@ -1,0 +1,43 @@
+# Dados (mantém a estrutura de pastas, ignora o conteúdo)
+data/raw/*
+data/processed/*
+data/splits/train/*
+data/splits/val/*
+data/splits/test/*
+!data/**/.gitkeep
+
+# Checkpoints e pesos de modelo (inclui pesos pre-treinados baixados pelo
+# Ultralytics na raiz do projeto, ex. yolov8n.pt)
+*.pt
+*.pth
+*.onnx
+*.weights
+!models/**/.gitkeep
+
+# Vídeos (mantém a estrutura, ignora arquivos grandes)
+video/input/*
+video/output/*
+!video/**/.gitkeep
+!video/**/README.md
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Estado local do Claude Code (nao e conteudo do projeto)
+.claude/scheduled_tasks.lock
