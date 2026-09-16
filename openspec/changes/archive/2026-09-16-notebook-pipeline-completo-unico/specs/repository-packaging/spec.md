@@ -1,17 +1,4 @@
-# repository-packaging Specification
-
-## Purpose
-
-Empacota o projeto como um repositório Git local e um notebook Colab executável, atendendo aos Itens 2 e 3 da entrega (repositório GitHub e notebook executável).
-
-## Requirements
-
-### Requirement: Repositório Git local inicializado
-O projeto SHALL ser um repositório Git local (`git init`), com um primeiro commit contendo o estado atual do projeto, respeitando o `.gitignore` já existente. Nenhum push a um repositório remoto SHALL ocorrer sem confirmação explícita do integrante.
-
-#### Scenario: Histórico local existe e respeita o .gitignore
-- **WHEN** alguém roda `git log` no repositório após esta mudança
-- **THEN** encontra pelo menos um commit, e `git status` não lista arquivos grandes/gitignorados (dados brutos, pesos de modelo, vídeos) como não rastreados
+## MODIFIED Requirements
 
 ### Requirement: Notebook Colab executável
 O repositório SHALL conter, em `notebooks/`, um conjunto de notebooks autocontidos organizados por fase — `visao_computacional_01_data.ipynb`, `visao_computacional_02_detection.ipynb`, `visao_computacional_03_segmentation.ipynb`, `visao_computacional_04_evaluation.ipynb`, `visao_computacional_05_inference_video.ipynb`, `visao_computacional_06_report.ipynb` — cada um reproduzindo a lógica dos scripts `src/step01`-`step14` correspondentes **diretamente nas células de código** (não por chamada a scripts externos via `%run` ou `subprocess`), executáveis em Google Colab. O repositório SHALL também conter um notebook consolidado (`visao_computacional_pipeline_completo.ipynb`) com as mesmas células dos 6 notebooks por fase, em sequência, com uma única célula de setup.

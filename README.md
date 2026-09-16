@@ -33,10 +33,9 @@ data/
   raw/            # imagens originais anotadas (não versionado)
   processed/      # imagens/anotações após pré-processamento (não versionado)
   splits/         # listas de arquivos train/val/test por fonte (versionado)
-notebooks/        # 6 notebooks Colab autocontidos (não chamam src/, código inline):
-                  #   visao_computacional_01_data.ipynb, visao_computacional_02_detection.ipynb,
-                  #   visao_computacional_03_segmentation.ipynb, visao_computacional_04_evaluation.ipynb,
-                  #   visao_computacional_05_inference_video.ipynb, visao_computacional_06_report.ipynb
+notebooks/        # 7 notebooks Colab autocontidos (não chamam src/, código inline):
+                  #   6 por fase (visao_computacional_01_data.ipynb ... _06_report.ipynb)
+                  #   + 1 consolidado com tudo em sequência (visao_computacional_pipeline_completo.ipynb)
 src/
   step01_data_*.py, step02_data_*.py, ...      # Fase 1 (dados)
   step0N_detection_*.py                        # Fase 2 (detecção)
@@ -114,8 +113,11 @@ completos e [`docs/roadmap.md`](docs/roadmap.md) para o status por fase.
 
 ## Rodar no Google Colab
 
-Em vez dos scripts locais, use os 6 notebooks em `notebooks/` (código inline,
-sem depender de `src/`) — abra cada um no Colab e rode as células em ordem:
+Em vez dos scripts locais, use os notebooks em `notebooks/` (código inline,
+sem depender de `src/`). Duas opções:
+
+**Opção A — um notebook por fase** (sessões Colab separadas, ex. treinar
+detecção num dia e segmentação noutro):
 
 1. [`visao_computacional_01_data.ipynb`](notebooks/visao_computacional_01_data.ipynb) — baixa e prepara os dados (Fase 1)
 2. [`visao_computacional_02_detection.ipynb`](notebooks/visao_computacional_02_detection.ipynb) — treina o detector (Fase 2)
@@ -124,11 +126,17 @@ sem depender de `src/`) — abra cada um no Colab e rode as células em ordem:
 5. [`visao_computacional_05_inference_video.ipynb`](notebooks/visao_computacional_05_inference_video.ipynb) — concatena o vídeo e roda a inferência (Fase 4)
 6. [`visao_computacional_06_report.ipynb`](notebooks/visao_computacional_06_report.ipynb) — gera o relatório de conformidade de EPI
 
+**Opção B — um único notebook com tudo:**
+[`visao_computacional_pipeline_completo.ipynb`](notebooks/visao_computacional_pipeline_completo.ipynb)
+— as mesmas células dos 6 acima, em sequência, com uma única célula de setup
+no topo (útil para rodar o pipeline inteiro numa sessão só, ou para anexar
+como entrega única).
+
 Todos os notebooks montam o Google Drive e usam a mesma pasta persistente
 (`/content/drive/MyDrive/vc-seguranca-trabalho`) para compartilhar dados e
-pesos entre eles. `visao_computacional_01_data.ipynb` pede um token do Kaggle;
-`visao_computacional_05_inference_video.ipynb` exige upload manual dos 3
-clipes de vídeo (ver `video/input/README.md`).
+pesos entre eles. A seção de dados pede um token do Kaggle; a seção de
+inferência em vídeo exige upload manual dos 3 clipes de vídeo (ver
+`video/input/README.md`).
 
 ## Planejamento do projeto
 
