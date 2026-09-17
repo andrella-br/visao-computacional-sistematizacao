@@ -29,13 +29,10 @@ CROPS_DIR = FIGURES_DIR / "_crops"
 # NOTA: boa parte do dataset Construction Site Safety (versao exportada) e
 # composta por imagens-mosaico 2x2 (4 fotos combinadas numa so), achado
 # documentado em reports/deteccao-fase2.md. Para uma comparacao visual legivel,
-# usamos recortes de um unico quadrante (contendo uma pessoa) em vez da
-# imagem mosaico inteira.
-CROP_EXAMPLES = [
-    # (arquivo fonte no dataset, quadrante: "tl"/"tr"/"bl"/"br")
-    ("image_1004_jpg.rf.de519703cdcdd06d06edd7cfa60b8184.jpg", "bl"),
-    ("-1670-_png_jpg.rf.0463edb430019e01ec79eed27a6349d6.jpg", "tl"),
-]
+# recortamos o quadrante onde a pessoa esta centrada em vez da imagem
+# mosaico inteira. A escolha de QUAL imagem/quadrante usar e dinamica (nao
+# depende de nomes de arquivo fixos), pois o subconjunto de 350 imagens
+# selecionado na Fase 1 pode variar entre maquinas/sistemas operacionais.
 
 
 def crop_quadrant(img_path, quadrant, out_path):
@@ -50,16 +47,39 @@ def crop_quadrant(img_path, quadrant, out_path):
     img.crop(boxes[quadrant]).save(out_path)
 
 
+def pick_quadrant_for_person(label_path):
+    """Le o label YOLO e retorna o quadrante (tl/tr/bl/br) onde o centro da
+    primeira instancia de Person cai, ou None se nao houver Person."""
+    if not label_path.exists():
+        return None
+    for line in label_path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        parts = line.split()
+        if int(parts[0]) != PERSON_CLASS_ID_DETECTION:
+            continue
+        cx, cy = float(parts[1]), float(parts[2])
+        return ("t" if cy < 0.5 else "b") + ("l" if cx < 0.5 else "r")
+    return None
+
+
 def find_images_with_person(n):
-    """Recorta quadrantes de imagens-mosaico que contem uma pessoa, para
-    uma comparacao visual legivel (ver CROP_EXAMPLES)."""
+    """Escolhe, em ordem deterministica, as primeiras n imagens cujo label
+    contem Person, e recorta o quadrante onde a pessoa esta centrada."""
     CROPS_DIR.mkdir(parents=True, exist_ok=True)
     selected = []
-    for filename, quadrant in CROP_EXAMPLES[:n]:
-        src = CSS_IMAGES_DIR / filename
-        out_path = CROPS_DIR / f"{Path(filename).stem}_{quadrant}.jpg"
-        crop_quadrant(src, quadrant, out_path)
+    for label_path in sorted(CSS_LABELS_DIR.glob("*.txt")):
+        quadrant = pick_quadrant_for_person(label_path)
+        if quadrant is None:
+            continue
+        img_path = CSS_IMAGES_DIR / (label_path.stem + ".jpg")
+        if not img_path.exists():
+            continue
+        out_path = CROPS_DIR / f"{label_path.stem}_{quadrant}.jpg"
+        crop_quadrant(img_path, quadrant, out_path)
         selected.append(out_path)
+        if len(selected) >= n:
+            break
     return selected
 
 

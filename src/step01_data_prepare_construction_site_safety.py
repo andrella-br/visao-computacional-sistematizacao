@@ -93,7 +93,7 @@ def collect_pool(source_root: Path):
         labels_dir = source_root / split / "labels"
         if not images_dir.exists():
             continue
-        for img_path in images_dir.iterdir():
+        for img_path in sorted(images_dir.iterdir()):
             if img_path.suffix.lower() not in (".jpg", ".jpeg", ".png"):
                 continue
             label_path = labels_dir / (img_path.stem + ".txt")
