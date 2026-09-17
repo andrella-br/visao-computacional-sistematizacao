@@ -80,8 +80,8 @@ def compute_mean_iou_detection():
         if not gt_boxes:
             continue
 
-        gt_boxes_t = torch.tensor(gt_boxes)
-        gt_classes_t = torch.tensor(gt_classes)
+        gt_boxes_t = torch.tensor(gt_boxes, device=pred_boxes.device)
+        gt_classes_t = torch.tensor(gt_classes, device=pred_boxes.device)
         iou_matrix = box_iou(pred_boxes, gt_boxes_t)
 
         for i in range(len(pred_boxes)):
