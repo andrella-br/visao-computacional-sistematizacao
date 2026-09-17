@@ -22,6 +22,9 @@ segmentação de pessoas em canteiros de obra.
 dataset/EDA, metodologia, resultados (validação e teste), análise de erros,
 aplicação prática e limitações.
 
+🎬 **[Roteiro do vídeo-pitch](docs/roteiro-video-pitch.md)** — guia com
+tempo sugerido por bloco para apresentar o notebook consolidado em vídeo.
+
 Ver também [`docs/proposta-fase1.md`](docs/proposta-fase1.md) e
 [`reports/eda-fase1.md`](reports/eda-fase1.md) para a proposta original e a
 análise exploratória dos dados.

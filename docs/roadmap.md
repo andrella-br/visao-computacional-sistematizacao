@@ -138,7 +138,9 @@ inferência em `video/output/`.
   para o GitHub pendente de decisão do integrante (conta/nome do repo).
 - ✅ Notebook Colab executável: `notebooks/pipeline_completo.ipynb`
   (35 células, cobrindo `step01` a `step14`).
-- ⬜ Vídeo-pitch (5-8 min) — pendente, exige gravação do integrante.
+- ⬜ Vídeo-pitch (5-8 min) — roteiro pronto em
+  [`roteiro-video-pitch.md`](roteiro-video-pitch.md); gravação pendente
+  (exige o integrante).
 
 **Objetivo original:** consolidar e entregar todos os artefatos do projeto.
 
