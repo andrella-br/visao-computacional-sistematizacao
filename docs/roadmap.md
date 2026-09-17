@@ -110,6 +110,12 @@ qualidade das máscaras e comparação com a detecção).
   pequenos.
 - **Vídeo:** `video/output/deteccao_epi/` e `video/output/segmentacao_pessoas/`
   (38.3s, mesmo vídeo de entrada).
+- **Bônus implementado — rastreamento (ByteTrack):** 99 objetos rastreados,
+  20 pessoas únicas; violações únicas deduplicadas: 16 (`NO-Mask`), 26
+  (`NO-Safety Vest`), 0 (`NO-Hardhat` — confirma que o único evento dessa
+  classe era ruído). Vídeo anotado com IDs em
+  `video/output/deteccao_epi_tracking/`, detalhes em
+  [`../reports/relatorio-tracking.md`](../reports/relatorio-tracking.md).
 
 **Objetivo original:** avaliar rigorosamente no conjunto de teste e demonstrar o
 sistema em vídeo.

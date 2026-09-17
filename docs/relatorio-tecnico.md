@@ -174,6 +174,26 @@ Os dois modelos foram aplicados ao mesmo vídeo, gerando duas saídas anotadas:
 
 Em uma verificação pontual (dois trabalhadores empurrando um carrinho de mão), o detector identificou corretamente `Person` e `NO-Safety Vest` para ambos; o segmentador detectou corretamente apenas um dos dois trabalhadores no mesmo instante — consistente com o recall moderado medido no teste (0.376 para máscaras) e com a limitação de generalização entre domínios (COCO → canteiro de obra).
 
+## 8.1 Bônus: Rastreamento de Objetos (ByteTrack)
+
+Como extensão opcional (item de bônus do enunciado, até +0,5 ponto), o detector foi rodado com **ByteTrack** (tracker embutido no Ultralytics) sobre o mesmo vídeo, atribuindo um **ID persistente** a cada objeto entre quadros — não apenas uma detecção isolada por quadro.
+
+**Resultado:**
+
+| Métrica | Valor |
+|---|---:|
+| Objetos rastreados (tracks únicos) | 99 |
+| Pessoas únicas (`Person`) no vídeo | 20 |
+| `NO-Hardhat` — objetos distintos | 0 |
+| `NO-Mask` — objetos distintos | 16 |
+| `NO-Safety Vest` — objetos distintos | 26 |
+
+**Por que isso importa:** o relatório de conformidade da Seção 7 agrupa detecções por proximidade de tempo (heurística), sem saber se duas detecções em momentos diferentes são o mesmo objeto ou objetos diferentes. Com rastreamento, cada objeto recebe um ID persistente, permitindo contar **violações realmente distintas**, não apenas intervalos de tempo com detecção.
+
+**Achado interessante:** o único evento de `NO-Hardhat` do relatório original (duração de apenas 0,1s, confiança 0,307 — já sinalizado como possível ruído na Seção 7) **não formou nenhuma track estável** no rastreamento. Isso confirma, de forma independente, a suspeita de que era um falso positivo pontual do baseline, não uma detecção real.
+
+Vídeo anotado com IDs: `video/output/deteccao_epi_tracking/`. Dados brutos: `reports/tracking-epi.parquet`. Relatório: `reports/relatorio-tracking.md`.
+
 ## 9. Limitações e Próximos Passos
 
 **Limitações:**
@@ -187,7 +207,7 @@ Em uma verificação pontual (dois trabalhadores empurrando um carrinho de mão)
 - Treinar por mais épocas em GPU (Colab), reaproveitando os mesmos hiperparâmetros documentados, para comparar ganho de desempenho.
 - Anotar (ou usar Smart Polygon assistido por SAM) máscaras de pessoa no próprio domínio de canteiro de obra, eliminando a limitação de generalização cruzada de domínio do segmentador.
 - Aplicar técnicas de balanceamento (class weights, oversampling) para as classes minoritárias (`vehicle`, `Mask`, `Safety Cone`).
-- Rastreamento de objetos em vídeo (ByteTrack/DeepSORT) e/ou demo interativa (Gradio), como bônus opcional do enunciado.
+- ~~Rastreamento de objetos em vídeo (ByteTrack)~~ — feito, ver Seção 8.1. Demo interativa (Gradio) continua como bônus opcional não implementado.
 - Aumentar o limiar de confiança e a duração mínima de evento no relatório de conformidade, para reduzir ruído de falsos positivos pontuais.
 
 ## 10. Referências e Fontes de Dados
