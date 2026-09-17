@@ -34,6 +34,9 @@ __pycache__/
 *.pyo
 .pytest_cache/
 
+# Cache local do Gradio (certificados, etc.)
+.gradio/
+
 # Sistema operacional / editor
 .DS_Store
 Thumbs.db
