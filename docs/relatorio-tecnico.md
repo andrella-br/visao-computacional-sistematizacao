@@ -1,13 +1,18 @@
 # Relatório Técnico — Sistema de Visão Computacional para Segurança do Trabalho
 
+**CEUB - Centro Universitário de Brasília**
+
 **Pós-graduação em Engenharia de IA** 
 
 **Disciplina:** Visão Computacional e Reconhecimento de Padrões (Prof. Romes Heriberto)
 
+**RA: 82600743** 
+
 **Aluno:** André Luiz Lopes de Azevedo
 
-**Repositório:** https://github.com/andrella-br/visao-computacional-sistematizacao
+**Notebook Google Colab:** https://colab.research.google.com/drive/1rgTu0MlXdp5G9vLv50gLbI_9H61HY3yW?usp=sharing
 
+**Repositório:** https://github.com/andrella-br/visao-computacional-sistematizacao
 
 **Vídeo de Apresentação:** https://drive.google.com/file/d/1J6dCePB5x3PLGFHZLZDyKc9cJhC9-FBF/view?usp=sharing
 
