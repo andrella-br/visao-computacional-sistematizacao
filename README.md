@@ -22,8 +22,14 @@ segmentação de pessoas em canteiros de obra.
 dataset/EDA, metodologia, resultados (validação e teste), análise de erros,
 aplicação prática e limitações.
 
-🎬 **[Roteiro do vídeo-pitch](docs/roteiro-video-pitch.md)** — guia com
-tempo sugerido por bloco para apresentar o notebook consolidado em vídeo.
+📓 **[Notebook consolidado](notebooks/visao_computacional_pipeline_completo.ipynb)**
+— todas as fases (dados → detecção → segmentação → avaliação → vídeo →
+relatório de conformidade → bônus de rastreamento) em um único notebook
+Colab, executável de ponta a ponta.
+
+🎬 **Vídeo-pitch:** _[link a preencher após upload no YouTube/Drive]_ — ver
+[`docs/roteiro-video-pitch.md`](docs/roteiro-video-pitch.md) para o roteiro
+usado na gravação.
 
 Ver também [`docs/proposta-fase1.md`](docs/proposta-fase1.md) e
 [`reports/eda-fase1.md`](reports/eda-fase1.md) para a proposta original e a
