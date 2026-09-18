@@ -176,20 +176,28 @@ mostrando o mesmo ID grudado numa pessoa entre quadros.
 ## 9. Bônus extra — Demo interativa publicada (6:30 – 7:10)
 
 **Mostre:** troque para a aba do navegador com a demo Gradio rodando (link
-gerado no Colab). Faça o upload de uma foto de canteiro de obra **ao
-vivo** e mostre o resultado aparecendo (caixas + máscara + resumo de
-conformidade).
+gerado no Colab). A demo tem **duas abas**:
+- **"Imagem"** — faça upload de uma foto de canteiro de obra **ao vivo** e
+  mostre o resultado aparecendo (caixas + máscara + resumo de
+  conformidade). É instantâneo, use esta para a gravação.
+- **"Vídeo"** — aceita upload de vídeo, escolhe detector ou segmentador, e
+  devolve o vídeo anotado quadro a quadro. Mencione que existe, mas **não
+  demonstre ao vivo** (demora minutos) — se quiser mostrar o resultado,
+  deixe um vídeo curto já processado antes de gravar.
 
 **Fale:**
 - Além do notebook, publiquei uma demo interativa (Gradio) onde qualquer
-  pessoa sobe uma foto e vê os dois modelos rodando na hora.
+  pessoa sobe uma foto ou vídeo e vê os dois modelos rodando na hora, sem
+  precisar rodar nenhum código.
 - Mencione rapidamente: o enunciado dá bônus por rastreamento *ou* demo
   interativa — já garanti o bônus com o rastreamento, então esta demo é
   um extra além do pedido.
 
-> *"Além de tudo isso, publiquei uma demo interativa onde dá pra testar o
-> sistema ao vivo, sem precisar rodar nenhum código — é só subir uma
-> foto."* (demonstre com uma foto real na hora)
+> *"Além de tudo isso, publiquei uma demo interativa com duas abas: uma
+> pra imagem, com resultado instantâneo, e outra pra vídeo, que processa
+> quadro a quadro. Dá pra testar o sistema ao vivo, sem precisar rodar
+> nenhum código — é só subir uma foto."* (demonstre com uma foto real na
+> hora, na aba "Imagem")
 
 ## 10. Conclusão, limitações e próximos passos (7:10 – 7:50)
 
@@ -223,8 +231,11 @@ conformidade).
       rastreamento (`video/output/deteccao_epi_tracking/...`) prontos
       para tocar um trecho.
 - [ ] Aba da demo Gradio aberta e testada (link `*.gradio.live` ainda
-      válido — gere de novo se tiver passado ~72h) — tenha 1-2 fotos de
-      canteiro de obra prontas no computador pra fazer upload ao vivo.
+      válido — gere de novo se tiver passado ~72h, rodando a célula do
+      Colab de novo) — tenha 1-2 fotos de canteiro de obra prontas no
+      computador pra fazer upload ao vivo na aba "Imagem".
+- [ ] (Opcional) Testar a aba "Vídeo" da demo com antecedência — demora
+      minutos, então não faça isso ao vivo durante a gravação.
 - [ ] Números principais decorados ou anotados: mAP 0,547 (detecção),
       mask mAP 0,393 (segmentação), IoU 0,793, colete ausente em 62,8% do
       vídeo, 99 objetos rastreados / 20 pessoas únicas.
