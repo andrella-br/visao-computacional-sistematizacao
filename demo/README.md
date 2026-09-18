@@ -24,7 +24,12 @@ ver repositório do projeto.
 - Segmentador: YOLOv8n-seg, fine-tuning para a classe `person` (silhueta
   completa).
 
-Envie uma foto de canteiro de obra e veja os dois modelos em ação.
+Duas abas:
+- **Imagem** — envie uma foto, resultado instantâneo com os dois modelos
+  lado a lado.
+- **Vídeo** — envie um vídeo, escolha detector ou segmentador, e receba o
+  vídeo anotado quadro a quadro (leva alguns minutos, dependendo da
+  duração e se há GPU disponível na sessão).
 
 ## Como rodar
 
