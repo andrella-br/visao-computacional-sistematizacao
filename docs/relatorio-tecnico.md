@@ -1,8 +1,13 @@
 # Relatório Técnico — Sistema de Visão Computacional para Segurança do Trabalho
 
 **Disciplina:** Pós-graduação · Visão Computacional e Reconhecimento de Padrões (Prof. Romes Heriberto)
-**Integrante:** 1 (trabalho individual)
-**Repositório:** ver `README.md` para estrutura de pastas e instruções de reprodução.
+
+**Aluno:** André Luiz Lopes de Azevedo
+
+**Repositório:** https://github.com/andrella-br/visao-computacional-sistematizacao
+
+
+**Vídeo de Apresentação:** https://drive.google.com/file/d/1J6dCePB5x3PLGFHZLZDyKc9cJhC9-FBF/view?usp=sharing
 
 ---
 
@@ -79,7 +84,7 @@ Ambos os modelos foram treinados localmente em **CPU** (sem GPU disponível no a
 ### 3.2 Segmentação (Fase 3)
 
 - **Modelo:** YOLOv8n-seg (nano), pré-treinado no COCO, fine-tuning para a classe única `person`.
-- **Conversão de dados:** os polígonos de anotação do COCO (formato JSON) foram convertidos para o formato YOLO-seg (labels `.txt` com coordenadas normalizadas), sem uso de `pycocotools` — script próprio (`src/step07_segmentation_prepare_yolo_config.py`).
+- **Conversão de dados:** os polígonos de anotação do COCO (formato JSON) foram convertidos para o formato YOLO-seg (labels `.txt` com coordenadas normalizadas), com uma implementação própria, sem uso de `pycocotools`.
 - **Hiperparâmetros:** mesma configuração da Fase 2 (30 épocas, `imgsz=640`, `batch=16`, seed=42), para manter os dois modelos comparáveis.
 - **Tempo de treino:** ~61 minutos (CPU).
 
@@ -194,6 +199,15 @@ Como extensão opcional (item de bônus do enunciado, até +0,5 ponto), o detect
 
 Vídeo anotado com IDs: `video/output/deteccao_epi_tracking/`. Dados brutos: `reports/tracking-epi.parquet`. Relatório: `reports/relatorio-tracking.md`.
 
+## 8.2 Bônus Extra: Demo Interativa (Gradio)
+
+Além do bônus de rastreamento (já suficiente para os +0,5 ponto do enunciado), foi publicada uma **demo interativa** com duas abas:
+
+- **Imagem:** upload de uma foto de canteiro de obra, resultado instantâneo com os dois modelos (caixas de EPI + máscara de pessoa) lado a lado, e um resumo textual das violações encontradas.
+- **Vídeo:** upload de um vídeo, escolha entre detector ou segmentador, processamento quadro a quadro com barra de progresso, e vídeo anotado como saída.
+
+A demo roda em uma sessão do Google Colab e gera um link público temporário (~72h por execução). Publicação permanente via Hugging Face Spaces foi avaliada, mas a hospedagem de Spaces com Gradio passou a exigir assinatura paga (mudança de política identificada durante o desenvolvimento) — documentado como limitação de infraestrutura, não do sistema em si.
+
 ## 9. Limitações e Próximos Passos
 
 **Limitações:**
@@ -207,7 +221,7 @@ Vídeo anotado com IDs: `video/output/deteccao_epi_tracking/`. Dados brutos: `re
 - Treinar por mais épocas em GPU (Colab), reaproveitando os mesmos hiperparâmetros documentados, para comparar ganho de desempenho.
 - Anotar (ou usar Smart Polygon assistido por SAM) máscaras de pessoa no próprio domínio de canteiro de obra, eliminando a limitação de generalização cruzada de domínio do segmentador.
 - Aplicar técnicas de balanceamento (class weights, oversampling) para as classes minoritárias (`vehicle`, `Mask`, `Safety Cone`).
-- ~~Rastreamento de objetos em vídeo (ByteTrack)~~ — feito, ver Seção 8.1. Demo interativa (Gradio) continua como bônus opcional não implementado.
+- ~~Rastreamento de objetos em vídeo (ByteTrack)~~ — feito, ver Seção 8.1. ~~Demo interativa (Gradio)~~ — feito, ver Seção 8.2.
 - Aumentar o limiar de confiança e a duração mínima de evento no relatório de conformidade, para reduzir ruído de falsos positivos pontuais.
 
 ## 10. Referências e Fontes de Dados
