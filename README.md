@@ -27,13 +27,7 @@ aplicação prática e limitações.
 relatório de conformidade → bônus de rastreamento) em um único notebook
 Colab, executável de ponta a ponta.
 
-🎬 **Vídeo-pitch:** _[link a preencher após upload no YouTube/Drive]_ — ver
-[`docs/roteiro-video-pitch.md`](docs/roteiro-video-pitch.md) para o roteiro
-usado na gravação.
-
-Ver também [`docs/proposta-fase1.md`](docs/proposta-fase1.md) e
-[`reports/eda-fase1.md`](reports/eda-fase1.md) para a proposta original e a
-análise exploratória dos dados.
+🎬 **Vídeo-pitch:**  https://drive.google.com/file/d/1J6dCePB5x3PLGFHZLZDyKc9cJhC9-FBF/view?usp=sharing
 
 ## Estrutura do repositório
 
@@ -51,10 +45,7 @@ src/
   step0N_segmentation_*.py                     # Fase 3 (segmentação)
   step0N_evaluation_*.py                       # Fase 4 (avaliação)
   step0N_inference_*.py                        # Fase 4 (inferência/vídeo)
-  # nomeados `stepNN_<fase>_<descrição>.py` — NN é a ordem global de
-  # execução no pipeline; <fase> é data/detection/segmentation/evaluation/
-  # inference, indicando a que etapa do roadmap o script pertence
-  # (substitui as antigas subpastas src/detection/, src/segmentation/ etc.)
+
 models/
   detection/      # checkpoints do detector (não versionado)
   segmentation/   # checkpoints da segmentação (não versionado)
@@ -65,15 +56,9 @@ video/
   output/         # vídeo(s) com inferência sobreposta (não versionado)
 docs/
   roadmap.md      # as 5 fases do projeto, entregáveis e critérios do barema
-openspec/         # propostas de mudança e specs do projeto (padrão OpenSpec)
 image/            # material de apoio do enunciado
 ```
 
-Pastas de dados, modelos e vídeo são versionadas vazias (via `.gitkeep`); seu
-conteúdo é ignorado pelo `.gitignore` por serem arquivos grandes. Os scripts
-em `src/` não ficam em subpastas por tarefa: o nome `stepNN_<fase>_<descrição>.py`
-já indica a ordem de execução (`NN`) e a fase do roadmap a que pertencem
-(`data`, `detection`, `segmentation`, `evaluation`, `inference`).
 
 ## Como reproduzir
 
@@ -116,10 +101,6 @@ já indica a ordem de execução (`NN`) e a fase do roadmap a que pertencem
    `step01` espera um token do Kaggle configurado (`~/.kaggle/access_token`,
    gerado em kaggle.com/settings/api) para baixar o dataset de EPIs.
 
-Todas as fases (1 a 4) estão concluídas — ver
-[`docs/relatorio-tecnico.md`](docs/relatorio-tecnico.md) para os resultados
-completos e [`docs/roadmap.md`](docs/roadmap.md) para o status por fase.
-
 ## Rodar no Google Colab
 
 Em vez dos scripts locais, use os notebooks em `notebooks/` (código inline,
@@ -146,15 +127,3 @@ Todos os notebooks montam o Google Drive e usam a mesma pasta persistente
 pesos entre eles. A seção de dados pede um token do Kaggle; a seção de
 inferência em vídeo exige upload manual dos 3 clipes de vídeo (ver
 `video/input/README.md`).
-
-## Planejamento do projeto
-
-O planejamento segue o padrão [OpenSpec](https://github.com/Fission-AI/OpenSpec):
-cada fase do roadmap vira uma mudança em `openspec/changes/`, com proposta,
-specs e tarefas rastreáveis antes da implementação. Veja `docs/roadmap.md`
-para o plano de fases e `Sistematizacao_Instruções.md` para o enunciado
-completo da disciplina.
-
-## Integrantes
-
-_A preencher pelo grupo._
