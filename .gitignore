@@ -17,6 +17,9 @@ data/splits/test/*
 # Vídeos (mantém a estrutura, ignora arquivos grandes)
 video/input/*
 video/output/*
+video/*.mp4
+video/*.avi
+video/*.mov
 !video/**/.gitkeep
 !video/**/README.md
 
